@@ -34,7 +34,27 @@
             }
             console.log(prices);
             console.log("Prices output");
+            let adjustedPrice = [];
+            for(let i=0;i<prices.length;i++){
+                let index = prices[i].indexOf(' ');
+                let unit = prices[i].substring(index+1);
+                console.log(unit);
+                switch(unit){
+                    case "million":
+                        adjustedPrice.push(parseFloat(prices[i].substring(0,index))*1000000);
+                        break;
+                    case "billion":
+                        adjustedPrice.push(parseFloat(prices[i].substring(0,index))*1000000000);
+                        break;
+                    case "trillion":
+                        adjustedPrice.push(parseFloat(prices[i].substring(0,index))*1000000000000);
+                        break;
+                    case "quadrillion":
+                        adjustedPrice.push(parseFloat(prices[i].substring(0,index))*1000000000000000);
+                }
 
+            }
+            console.log(adjustedPrice);
         },1000);
     });
 })();
