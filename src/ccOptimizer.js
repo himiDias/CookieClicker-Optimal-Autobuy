@@ -16,6 +16,10 @@
     window.addEventListener('load', function() {
 
         setTimeout(function(){
+
+            //------------------------------------------------------------------------------
+            //GET LIST OF ALL AVAILABLE BUILDINGS
+            //------------------------------------------------------------------------------
             const items = document.getElementsByClassName('product unlocked');
 
             console.log(items);
@@ -24,9 +28,14 @@
 
             for (let i=0;i<items.length;i++){
                 console.log(items[i]);
-            }
 
+            }
+            //------------------------------------------------------------------------------
+            //1)GET PRICE OF EACH BUILDING
+            //2)CONVERT PRICE TO NUMERICAL VALUE
+            //------------------------------------------------------------------------------
             console.log("HTML Collection elements Output");
+            //1)
             let prices = [];
             for (let i=0;i<items.length;i++){
                 prices.push(items[i].lastChild.querySelector('.price').textContent);
@@ -35,6 +44,7 @@
             console.log(prices);
             console.log("Prices output");
             let adjustedPrice = [];
+            //2)
             for(let i=0;i<prices.length;i++){
                 let index = prices[i].indexOf(' ');
                 let unit = prices[i].substring(index+1);
@@ -55,6 +65,43 @@
 
             }
             console.log(adjustedPrice);
+            //-----------------------------------------------------------------------------
+            //GET LIST OF COOKIES PER BER BUILDING
+            //-----------------------------------------------------------------------------
+            let cookies = [];
+            // Simulates hover over each building, gets tooltip element for each and get cookies
+            function simulateHover(){
+                let targetE = document.getElementById('product1');
+
+                if (targetE){
+                    Game.tooltip.dynamic = 1;
+                    Game.tooltip.draw(this, function(){
+                        return Game.ObjectsById[1].tooltip();
+                    },'store');
+                    Game.tooltip.wobble();
+
+                    targetE.dispatchEvent(new Event('mouseover'));
+                    let cookieText;
+                    setTimeout(() =>{
+                        const tooltip = document.querySelector('#tooltip');
+                        if (tooltip){
+                            cookieText = tooltip.querySelector('#tooltipBuilding').children.item(7).textContent;
+                            cookies.push(cookieText);
+                        }else{
+                            console.log("No tooltip");
+                        }
+                    },500);
+                    console.log(cookies);
+                    targetE.dispatchEvent(new Event('mouseout'));
+
+                }else{
+                    console.log('Target element not found');
+                }
+            }
+
+            simulateHover();
+
+
         },1000);
     });
 })();
