@@ -70,36 +70,47 @@
             //-----------------------------------------------------------------------------
             let cookies = [];
             // Simulates hover over each building, gets tooltip element for each and get cookies
-            function simulateHover(){
-                let targetE = document.getElementById('product1');
+            async function simulateHover(){
+                console.log("Simulation started");
+                let targetE;
+                for (let i = 0;i<items.length;i++){
+                    targetE = document.getElementById('product'+i);
+                    console.log(i);
+                    if (targetE){
+                        await new Promise(resolve =>{
+                            Game.tooltip.dynamic = 1;
+                            Game.tooltip.draw(this, function(){
+                                return Game.ObjectsById[i].tooltip();
+                            },'store');
+                            Game.tooltip.wobble();
 
-                if (targetE){
-                    Game.tooltip.dynamic = 1;
-                    Game.tooltip.draw(this, function(){
-                        return Game.ObjectsById[1].tooltip();
-                    },'store');
-                    Game.tooltip.wobble();
+                            targetE.dispatchEvent(new Event('mouseover'));
+                            let cookieText;
+                            setTimeout(() =>{
+                                let tooltip = document.querySelector('#tooltip');
+                                if (tooltip){
+                                    cookieText = tooltip.querySelector('#tooltipBuilding').children.item(7).textContent;
+                                    cookies.push(cookieText);
+                                }else{
+                                    console.log("No tooltip");
+                                }
+                                targetE.dispatchEvent(new Event('mouseout'));
+                                resolve();
+                            },50);
+                        });
 
-                    targetE.dispatchEvent(new Event('mouseover'));
-                    let cookieText;
-                    setTimeout(() =>{
-                        const tooltip = document.querySelector('#tooltip');
-                        if (tooltip){
-                            cookieText = tooltip.querySelector('#tooltipBuilding').children.item(7).textContent;
-                            cookies.push(cookieText);
-                        }else{
-                            console.log("No tooltip");
-                        }
-                    },500);
-                    console.log(cookies);
-                    targetE.dispatchEvent(new Event('mouseout'));
-
-                }else{
-                    console.log('Target element not found');
+                    }else{
+                        console.log('Target element not found');
+                    }
                 }
+                console.log(cookies);
             }
 
             simulateHover();
+
+            for (let i=0;i<cookies.length;i++){
+
+            }
 
 
         },1000);
