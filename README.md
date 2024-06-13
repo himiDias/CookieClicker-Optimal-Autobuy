@@ -4,7 +4,7 @@ Following Repository contains the JS code for a web script which can be applied 
 
 ## Notes For Future Adjustments
 
-- <bold><strong>Unable to get the cookies for each building, ends up only retrieving cookies for time machine 12 times because the tooltip is constantly set to time machine when in a for loop. Must be fixed immediately as cannot move forward</strong><bold>
+- <bold><strong>Need to handle how to extract the number from the string, could use regex. Must be done immediately before continuing</strong><bold>
 
 - <bold><strong>Issue with big number multiplation, leaving a small decimal at the end. Must be fixed before calculation begins</strong></bold>
 
