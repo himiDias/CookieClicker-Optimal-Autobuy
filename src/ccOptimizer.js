@@ -15,7 +15,7 @@
     // Your code here...
     window.addEventListener('load', function() {
 
-        setTimeout(function(){
+        setTimeout(async function(){
 
             //------------------------------------------------------------------------------
             //GET LIST OF ALL AVAILABLE BUILDINGS
@@ -45,22 +45,29 @@
             console.log("Prices output");
             let adjustedPrice = [];
             //2)
+            // TO FIX: DOES NOT WORK FOR PRICES LESS THAN A MILLION AS IT USEES COMMA, AND ALSO NO CASE FOR THIS
+            //Above fixed
             for(let i=0;i<prices.length;i++){
                 let index = prices[i].indexOf(' ');
                 let unit = prices[i].substring(index+1);
+                let temp = prices[i].substring(0,index);
+                temp = temp.replace(/,/g,'');
                 console.log(unit);
                 switch(unit){
                     case "million":
-                        adjustedPrice.push(parseFloat(prices[i].substring(0,index))*1000000);
+                        adjustedPrice.push(parseFloat(temp)*1000000);
                         break;
                     case "billion":
-                        adjustedPrice.push(parseFloat(prices[i].substring(0,index))*1000000000);
+                        adjustedPrice.push(parseFloat(temp)*1000000000);
                         break;
                     case "trillion":
-                        adjustedPrice.push(parseFloat(prices[i].substring(0,index))*1000000000000);
+                        adjustedPrice.push(parseFloat(temp)*1000000000000);
                         break;
                     case "quadrillion":
-                        adjustedPrice.push(parseFloat(prices[i].substring(0,index))*1000000000000000);
+                        adjustedPrice.push(parseFloat(temp)*1000000000000000);
+                        break;
+                    default:
+                        adjustedPrice.push(parseFloat(temp));
                 }
 
             }
@@ -106,12 +113,47 @@
                 console.log(cookies);
             }
 
-            simulateHover();
+            await simulateHover();
+            //------------------------------------------------------------------------------------------------------------
+            //1)USES REGEX TO GET THE NUMERICAL NUMBER OF COOKIES EACH BUILDING PRODUCES
+            //2)CONVERTS STRING TO INTEGER VALUE
+            //-----------------------------------------------------------------------------------------------------------
 
-            for (let i=0;i<cookies.length;i++){
+            //1)
+            const numberReg = /\d+,?\.?\d+/;
+            const unitReg = /\b\w*illion\b/;
+            let cookiesNum = [];
+            let cookiesUnit = [];
+            let adjustedCookies = [];
+            for (let i =0;i<cookies.length;i++){
 
+                cookiesNum.push(cookies[i].match(numberReg)[0].replace(/,/g,''));
+                let temp = cookies[i].match(unitReg);
+                if(temp){
+                    cookiesUnit.push(temp[0]);
+                }else{
+                    cookiesUnit.push(null);
+                   }
             }
 
+            console.log(cookiesNum);
+            console.log(cookiesUnit);
+            //2
+            for(let i = 0;i<cookies.length;i++){
+                switch(cookiesUnit[i]){
+                    case "million":
+                        adjustedCookies.push(parseFloat(cookiesNum[i])*1000000);
+                        break;
+                    case "billion":
+                        adjustedCookies.push(parseFloat(cookiesNum[i])*1000000000);
+                        break;
+                    default:
+                        adjustedCookies.push(parseFloat(cookiesNum[i]));
+                }
+
+
+            }
+            console.log(adjustedCookies);
 
         },1000);
     });
