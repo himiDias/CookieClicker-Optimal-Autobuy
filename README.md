@@ -2,9 +2,17 @@
 
 Following Repository contains the JS code for a web script which can be applied to the Cookie Clicker web game by using the TamperMonkey web extension.
 
-## Notes For Future Adjustments
+## To do list:
 
-- <bold><strong>Need to handle how to extract the number from the string, could use regex. Must be done immediately before continuing</strong><bold>
+- Calculate cookies per unit price for each building
+
+- Find optimal upgrade
+
+- Automatically update the optimal building
+
+- Repeat process
+
+## Notes For Future Adjustments
 
 - <bold><strong>Issue with big number multiplation, leaving a small decimal at the end. Must be fixed before calculation begins</strong></bold>
 
