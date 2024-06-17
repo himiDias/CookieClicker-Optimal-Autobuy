@@ -12,10 +12,9 @@
 (function() {
     'use strict';
 
-    // Your code here...
-    window.addEventListener('load', function() {
+    // Your code here..
 
-        setTimeout(async function(){
+        async function performUpgrade(){
 
             //------------------------------------------------------------------------------
             //GET LIST OF ALL AVAILABLE BUILDINGS
@@ -155,6 +154,39 @@
             }
             console.log(adjustedCookies);
 
-        },1000);
+            let costPerCookie = [];
+            let min = Infinity;
+            let minId;
+            let cPc;
+
+            for (let i =0;i<adjustedPrice.length;i++){
+                cPc=adjustedPrice[i]/adjustedCookies[i];
+                costPerCookie.push(cPc);
+                if (cPc<= min){
+                    min = cPc;
+                    minId = i;
+                }
+
+            }
+            console.log("Cost of 1 cps for each building");
+
+            console.log(costPerCookie);
+            console.log("Minimum cost of 1 cps");
+            console.log(min);
+            console.log(minId);
+
+            document.getElementById('product'+minId).click();
+
+        }
+
+        function startAutoUpgrade(){
+            const interval = 5000;
+
+            setInterval(performUpgrade, interval);
+        }
+
+    window.addEventListener('load',function(){
+        setTimeout(startAutoUpgrade,1000);
+
     });
 })();
