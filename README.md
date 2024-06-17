@@ -4,13 +4,11 @@ Following Repository contains the JS code for a web script which can be applied 
 
 ## To do list:
 
-- Calculate cookies per unit price for each building
+- Optimise process currently a little slow
 
-- Find optimal upgrade
+- Stop from repeating when there isnt enough money to upgrade, currently the process repeats regardless of whether an upgrade was clicked or not. Wastes computational power
 
-- Automatically update the optimal building
-
-- Repeat process
+- Buggy when interacting with the site whilst script is running
 
 ## Notes For Future Adjustments
 
@@ -22,9 +20,11 @@ Following Repository contains the JS code for a web script which can be applied 
 
 - Could add functionality to include efficiency brought by store upgrades but requires much more functionality
 
+- Could make into an extension, or add a gui allowing users to stop / edit the process
+
 ## Script Functionality
 
-- v1.0 - Yet to be written
+- v1.0.0 - Continously checks for most cost effective upgrade and automatically buys the building - 17/06/2024
 
 ## How to Set Up
 
