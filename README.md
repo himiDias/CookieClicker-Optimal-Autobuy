@@ -24,7 +24,7 @@ Following Repository contains the JS code for a web script which can be applied 
 
 ## Script Functionality
 
-- v1.0.0 - Continously checks for most cost effective upgrade and automatically buys the building - 17/06/2024
+- [v1.0.0](./src/ccOptimizer.js) - Continously checks for most cost effective upgrade and automatically buys the building - 17/06/2024
 
 ## How to Set Up
 
